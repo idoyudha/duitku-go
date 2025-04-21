@@ -25,10 +25,10 @@ func SendAPIRequest(
 	req any,
 	res any,
 	method string,
-	path string,
+	url string,
 	headerParams map[string]string,
 ) (*http.Response, error) {
-	r, err := c.setRequest(ctx, method, path, req, headerParams)
+	r, err := c.setRequest(ctx, method, url, req, headerParams)
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +55,7 @@ func SendAPIRequest(
 func (c *ServiceClient) setRequest(
 	ctx context.Context,
 	method string,
-	path string,
+	urlInput string,
 	reqBody any,
 	headerParams map[string]string,
 ) (req *http.Request, err error) {
@@ -69,20 +69,15 @@ func (c *ServiceClient) setRequest(
 		}
 	}
 
-	baseUrl := SandboxBaseURL
-	if c.Cfg.Environment == ProductionEnv {
-		baseUrl = ProductionBaseURL
-	}
-
-	url, err := url.Parse(baseUrl + path)
+	parsedUrl, err := url.Parse(urlInput)
 	if err != nil {
 		return nil, err
 	}
 
 	if body != nil {
-		req, err = http.NewRequestWithContext(ctx, method, url.String(), body)
+		req, err = http.NewRequestWithContext(ctx, method, parsedUrl.String(), body)
 	} else {
-		req, err = http.NewRequestWithContext(ctx, method, url.String(), nil)
+		req, err = http.NewRequestWithContext(ctx, method, parsedUrl.String(), nil)
 	}
 	if err != nil {
 		return nil, err

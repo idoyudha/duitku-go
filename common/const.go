@@ -3,10 +3,12 @@ package common
 type Environment string
 
 const (
-	SandboxEnv        Environment = "SANDBOX"
-	SandboxBaseURL    string      = "https://sandbox.duitku.com/webapi/api"
-	ProductionEnv     Environment = "PRODUCTION"
-	ProductionBaseURL string      = "https://passport.duitku.com/webapi/api"
+	SandboxEnv           Environment = "SANDBOX"
+	ProductionEnv        Environment = "PRODUCTION"
+	SandboxV2BaseURL     string      = "https://sandbox.duitku.com/webapi/api"
+	ProductionV2BaseURL  string      = "https://passport.duitku.com/webapi/api"
+	SandboxPOPBaseURL    string      = "https://api-sandbox.duitku.com/api"
+	ProductionPOPBaseURL string      = "https://api-prod.duitku.com/api"
 )
 
 type PaymentMethod string

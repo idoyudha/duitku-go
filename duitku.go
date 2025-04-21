@@ -12,8 +12,11 @@ type APIClient struct {
 }
 
 func NewClient(cfg *common.Config) *APIClient {
-	c := &APIClient{}
-	c.Cfg = cfg
+	c := &APIClient{
+		ServiceClient: &common.ServiceClient{
+			Cfg: cfg,
+		},
+	}
 
 	// Add API Services
 	c.InvoiceService = invoice.NewInvoiceService(c.ServiceClient)

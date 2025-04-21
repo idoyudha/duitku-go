@@ -15,44 +15,21 @@ type customerDetail struct {
 	PhoneNumber string `json:"phoneNumber,omitempty"`
 }
 
-type ovoDetail struct {
-	PaymentDetails []ovoPaymentDetail `json:"paymentDetails"`
-}
-
-type ovoPaymentDetail struct {
-	PaymentType string `json:"paymentType"`
-	Amount      int    `json:"amount"`
-}
-
-type shopeeDetail struct {
-	PromoIds string `json:"promo_ids"`
-	UseCoin  bool   `json:"useCoin"`
-}
-
-type accountLink struct {
-	CredentialCode string       `json:"credentialCode"`
-	Ovo            ovoDetail    `json:"ovo"`
-	Shopee         shopeeDetail `json:"shopee"`
-}
-
 type CreateInvoiceRequest struct {
-	MerchantCode     string               `json:"merchantCode"`
 	PaymentAmount    int                  `json:"paymentAmount"`
 	MerchantOrderId  string               `json:"merchantOrderId"`
 	ProductDetails   string               `json:"productDetails"`
 	Email            string               `json:"email"`
 	AdditionalParam  string               `json:"additionalParam,omitempty"`
-	PaymentMethod    common.PaymentMethod `json:"paymentMethod"`
 	MerchantUserInfo string               `json:"merchantUserInfo,omitempty"`
 	CustomerVaName   string               `json:"customerVaName"`
 	PhoneNumber      string               `json:"phoneNumber,omitempty"`
 	ItemDetails      []itemDetails        `json:"itemDetails,omitempty"`
 	CustomerDetail   customerDetail       `json:"customerDetail,omitempty"`
-	ReturnURL        string               `json:"returnUrl"`
 	CallbackURL      string               `json:"callbackUrl"`
-	Signature        string               `json:"signature"`
+	ReturnURL        string               `json:"returnUrl"`
 	ExpiryPeriod     int                  `json:"expiryPeriod,omitempty"`
-	AccountLink      accountLink          `json:"accountLink,omitempty"`
+	PaymentMethod    common.PaymentMethod `json:"paymentMethod"`
 }
 
 type CreateInvoiceResponse struct {
