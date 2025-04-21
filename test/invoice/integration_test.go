@@ -26,6 +26,14 @@ func TestInvoiceService(t *testing.T) {
 	})
 
 	t.Run("CreateInvoice", func(t *testing.T) {
+		t.Run("Failed Bad Request", func(t *testing.T) {
+			invReq := invoice.CreateInvoiceRequest{}
+			res, httpResp, err := client.InvoiceService.Create(context.Background(), invReq)
+			require.NotNil(t, res)
+			require.NotNil(t, httpResp)
+			require.Nil(t, err)
+			assert.Equal(t, http.StatusBadRequest, httpResp.StatusCode)
+		})
 		t.Run("Success", func(t *testing.T) {
 			invReq := invoice.CreateInvoiceRequest{
 				PaymentAmount:   10001,
@@ -50,6 +58,4 @@ func TestInvoiceService(t *testing.T) {
 			assert.Contains(t, string(respBody), "statusMessage")
 		})
 	})
-
-	// TODO: add get status
 }
