@@ -2,21 +2,38 @@ package invoice
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/idoyudha/duitku-go/common"
 )
 
 type InvoiceService struct {
-	config *common.Config
+	client *common.ServiceClient
 }
 
-func NewInvoiceService(config *common.Config) InvoiceService {
-	return InvoiceService{
-		config: config,
+func NewInvoiceService(service *common.ServiceClient) *InvoiceService {
+	return &InvoiceService{
+		client: service,
 	}
 }
 
-func (s *InvoiceService) Create(ctx context.Context, req CreateInvoiceRequest) (CreateInvoiceResponse, error) {
-	var response CreateInvoiceResponse
-	return response, nil
+func (s *InvoiceService) Create(ctx context.Context, req CreateInvoiceRequest) (CreateInvoiceResponse, *http.Response, error) {
+	res := &CreateInvoiceResponse{}
+	path := "/merchant/createInvoice"
+
+	headerParams := make(map[string]string)
+	headerParams[common.MerchantCodeHeader] = s.client.Cfg.MerchantCode
+	headerParams[common.TimeStampHeader] = s.client.GetCurrentTimestamp()
+	headerParams[common.SignatureHeader] = s.client.CreateSignature(headerParams[common.TimeStampHeader])
+
+	httpRes, err := common.SendAPIRequest(
+		ctx,
+		s.client,
+		req,
+		res,
+		http.MethodPost,
+		path,
+		headerParams,
+	)
+	return *res, httpRes, err
 }

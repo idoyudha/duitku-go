@@ -6,17 +6,17 @@ import (
 )
 
 type APIClient struct {
-	client *common.Config
+	*common.ServiceClient
 	// API Services
-	InvoiceService invoice.InvoiceService
+	InvoiceService *invoice.InvoiceService
 }
 
 func NewClient(cfg *common.Config) *APIClient {
 	c := &APIClient{}
-	c.client = cfg
+	c.Cfg = cfg
 
 	// Add API Services
-	c.InvoiceService = invoice.NewInvoiceService(cfg)
+	c.InvoiceService = invoice.NewInvoiceService(c.ServiceClient)
 
 	return c
 }

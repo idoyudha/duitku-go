@@ -4,5 +4,5 @@ package common
 type Config struct {
 	MerchantCode string
 	APIKey       string
-	BaseURL      string
+	Environment  Environment
 }
