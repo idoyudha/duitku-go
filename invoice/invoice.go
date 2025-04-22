@@ -11,12 +11,38 @@ type InvoiceService struct {
 	client *common.ServiceClient
 }
 
+// NewInvoiceService returns a new instance of InvoiceService with the given service client.
 func NewInvoiceService(service *common.ServiceClient) *InvoiceService {
 	return &InvoiceService{
 		client: service,
 	}
 }
 
+// Create creates a new invoice on duitku's server.
+// The method returns CreateInvoiceResponse, HTTP response, and error.
+// The CreateInvoiceResponse contains the detail of the created invoice.
+//
+// The request body should match the CreateInvoiceRequest struct.
+// The method will return error if the request body is empty or if the request
+// body is invalid.
+//
+// The method will also return error if the request to the server fails or if
+// the response from the server is invalid.
+//
+// The method will not return error if the request to the server is successful
+// and the response from the server is valid.
+//
+// The method will send a POST request to the server with the given request
+// body and headers.
+//
+// The method will add the following headers to the request:
+//   - X-Duitku-Merchantcode: the merchant code from the config.
+//   - X-Duitku-Timestamp: the current timestamp in milliseconds.
+//   - X-Duitku-Signature: the signature of the request using the API key from
+//     the config and the timestamp as the input.
+//
+// The method will use the sandbox base URL if the environment in the config
+// is set to sandbox. Otherwise, it will use the production base URL.
 func (s *InvoiceService) Create(ctx context.Context, req CreateInvoiceRequest) (CreateInvoiceResponse, *http.Response, error) {
 	res := &CreateInvoiceResponse{}
 	path := "/merchant/createInvoice"
