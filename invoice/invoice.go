@@ -2,6 +2,9 @@ package invoice
 
 import (
 	"context"
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/hex"
 	"net/http"
 
 	"github.com/idoyudha/duitku-go/common"
@@ -49,7 +52,7 @@ func (s *InvoiceService) Create(ctx context.Context, req CreateInvoiceRequest) (
 	headerParams := make(map[string]string)
 	headerParams[common.MerchantCodeHeader] = s.client.Cfg.MerchantCode
 	headerParams[common.TimeStampHeader] = s.client.GetCurrentTimestamp()
-	headerParams[common.SignatureHeader] = s.client.CreateSignature(headerParams[common.TimeStampHeader])
+	headerParams[common.SignatureHeader] = s.generateInvoiceSignature(headerParams[common.TimeStampHeader])
 
 	baseUrl := common.SandboxPOPBaseURL
 	if s.client.Cfg.Environment == common.ProductionEnv {
@@ -66,4 +69,15 @@ func (s *InvoiceService) Create(ctx context.Context, req CreateInvoiceRequest) (
 		headerParams,
 	)
 	return *res, httpRes, err
+}
+
+// GenerateInvoiceSignature generates an HMAC SHA-256 signature for the given timestamp.
+// It uses the API key from the config as the secret key to create the signature.
+// The result is returned as a hexadecimal-encoded string. This signature is used
+// for authenticating requests to the Duitku POP API.
+func (s *InvoiceService) generateInvoiceSignature(timestamp string) string {
+	h := hmac.New(sha256.New, []byte(s.client.Cfg.APIKey))
+	h.Write([]byte(s.client.Cfg.MerchantCode + timestamp))
+
+	return hex.EncodeToString(h.Sum(nil))
 }

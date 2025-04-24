@@ -1,0 +1,29 @@
+name: Go build and test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: 1.24.1
+
+    - name: Build
+      run: go build -v .
+
+    - name: Test
+      run: |
+        go test -v ./...
+      env:
+        MERCHANT_CODE: ${{ secrets.MERCHANT_CODE }}
+        API_KEY: ${{ secrets.API_KEY }}

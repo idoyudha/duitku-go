@@ -3,9 +3,6 @@ package common
 import (
 	"bytes"
 	"context"
-	"crypto/hmac"
-	"crypto/sha256"
-	"encoding/hex"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -117,16 +114,4 @@ func (c *ServiceClient) setRequest(
 // epoch (January 1, 1970 00:00:00 UTC) as the value.
 func (c *ServiceClient) GetCurrentTimestamp() string {
 	return strconv.FormatInt(time.Now().UnixNano()/1e6, 10)
-}
-
-// CreateSignature generates an HMAC SHA-256 signature for the request.
-// It combines the merchant code and the provided timestamp, then uses the API key
-// as the secret key to create the signature. The result is returned as a
-// hexadecimal-encoded string. This signature is used for authenticating requests
-// to the Duitku API.
-func (c *ServiceClient) CreateSignature(timestamp string) string {
-	h := hmac.New(sha256.New, []byte(c.Cfg.APIKey))
-	h.Write([]byte(c.Cfg.MerchantCode + timestamp))
-
-	return hex.EncodeToString(h.Sum(nil))
 }
