@@ -1,4 +1,7 @@
 # Duitku Golang API Client Library
+[![Go Reference](https://pkg.go.dev/badge/github.com/idoyudha/duitku-go)](https://pkg.go.dev/badge/github.com/idoyudha/duitku-go)
+[![Build Status](https://github.com/idoyudha/duitku-go/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/idoyudha/duitku-go/actions/workflows/go.yml?query=branch%3Amaster)
+
 Duitku API Library for Go
 
 ## Supported Feature
