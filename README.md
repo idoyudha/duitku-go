@@ -2,6 +2,7 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/idoyudha/duitku-go)](https://pkg.go.dev/github.com/idoyudha/duitku-go)
 [![Build Status](https://github.com/idoyudha/duitku-go/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/idoyudha/duitku-go/actions/workflows/go.yml?query=branch%3Amaster)
 [![Go Report Card](https://goreportcard.com/badge/github.com/idoyudha/duitku-go)](https://goreportcard.com/report/github.com/idoyudha/duitku-go)
+[![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
 
 Duitku API Library for Go
 
@@ -22,6 +23,10 @@ Duitku API Library for Go
 - https://docs.duitku.com/
 
 ## Installation
+Make sure your project is using go modules, if not initialize it:
+```bash
+go mod init
+```
 
 Get this library, add to your project
 
