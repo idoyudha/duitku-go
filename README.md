@@ -29,7 +29,7 @@ Get this library, add to your project
 go get -u github.com/idoyudha/duitku-go
 ```
 
-## Usage
+## Example Usage
 ```go
 import (
 	"context"
