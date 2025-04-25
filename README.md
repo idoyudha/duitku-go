@@ -26,7 +26,7 @@ Duitku API Library for Go
 Get this library, add to your project
 
 ```bash
-go get https://github.com/idoyudha/duitku-go
+go get -u github.com/idoyudha/duitku-go
 ```
 
 ## Usage
