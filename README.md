@@ -55,6 +55,12 @@ invoiceRequest := invoice.CreateInvoiceRequest{
 }
 
 res, httpResponse, err := client.InvoiceService.Create(context.Background(), invoiceRequest)
+if err != nil {
+	log.Printf("Found error InvoiceService.Create => %v", err)
+}
+
+log.Printf("Full HTTP Response from InvoiceService.Create => %v", httpResponse)
+log.Printf("Response body from InvoiceService.Create => %v", createInvoiceRes)
 ```
 
 ## Support
