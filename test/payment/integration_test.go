@@ -40,9 +40,8 @@ func TestGetPaymentMethods(t *testing.T) {
 
 		t.Run("Success", func(t *testing.T) {
 			getPaymentMethodReq := payment.GetPaymentMethodRequest{
-				MerchantCode: client.Cfg.MerchantCode,
-				Amount:       10001,
-				Datetime:     time.Now().Format("2006-01-02 15:04:05"),
+				Amount:   10001,
+				Datetime: time.Now().Format("2006-01-02 15:04:05"),
 			}
 			res, httpResp, err := client.PaymentService.GetMethods(context.Background(), getPaymentMethodReq)
 			require.NotNil(t, res)

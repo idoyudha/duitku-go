@@ -31,6 +31,7 @@ func (s *TransactionService) Create(ctx context.Context, req CreateTransactionRe
 		baseUrl = common.ProductionV2BaseURL
 	}
 
+	req.MerchantCode = s.client.Cfg.MerchantCode
 	req.Signature = s.generateTransactionSignature(req.MerchantOrderId + strconv.Itoa(req.PaymentAmount))
 
 	httpRes, err := common.SendAPIRequest(
@@ -75,6 +76,7 @@ func (s *TransactionService) GetStatus(ctx context.Context, req GetTransactionSt
 		baseUrl = common.ProductionV2BaseURL
 	}
 
+	req.MerchantCode = s.client.Cfg.MerchantCode
 	req.Signature = s.generateTransactionSignature(req.MerchantOrderId)
 
 	httpRes, err := common.SendAPIRequest(

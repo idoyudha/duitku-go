@@ -30,7 +30,6 @@ func TestTransactionServiceCC(t *testing.T) {
 	t.Run("CreateTransaction Credit/Debit Card", func(t *testing.T) {
 		t.Run("Success Credit/Debit Card", func(t *testing.T) {
 			trxReq := transaction.CreateTransactionRequest{
-				MerchantCode:    client.Cfg.MerchantCode,
 				PaymentAmount:   10001,
 				MerchantOrderId: merchantOrderId,
 				ProductDetails:  "test pay integration",
@@ -56,7 +55,6 @@ func TestTransactionServiceCC(t *testing.T) {
 
 		t.Run("Get Transaction Status", func(t *testing.T) {
 			trxStatusReq := transaction.GetTransactionStatusRequest{
-				MerchantCode:    client.Cfg.MerchantCode,
 				MerchantOrderId: merchantOrderId,
 			}
 			res, httpResp, err := client.TransactionService.GetStatus(context.Background(), trxStatusReq)
@@ -115,7 +113,6 @@ func TestTransactionServiceQR(t *testing.T) {
 
 		t.Run("Get Transaction Status", func(t *testing.T) {
 			trxStatusReq := transaction.GetTransactionStatusRequest{
-				MerchantCode:    client.Cfg.MerchantCode,
 				MerchantOrderId: merchantOrderId,
 			}
 			res, httpResp, err := client.TransactionService.GetStatus(context.Background(), trxStatusReq)
@@ -174,7 +171,6 @@ func TestTransactionServiceVA(t *testing.T) {
 
 		t.Run("Get Transaction Status", func(t *testing.T) {
 			trxStatusReq := transaction.GetTransactionStatusRequest{
-				MerchantCode:    client.Cfg.MerchantCode,
 				MerchantOrderId: merchantOrderId,
 			}
 			res, httpResp, err := client.TransactionService.GetStatus(context.Background(), trxStatusReq)

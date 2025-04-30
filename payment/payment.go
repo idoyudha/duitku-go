@@ -49,6 +49,7 @@ func (s *PaymentService) GetMethods(ctx context.Context, req GetPaymentMethodReq
 		baseUrl = common.ProductionV2BaseURL
 	}
 
+	req.MerchantCode = s.client.Cfg.MerchantCode
 	req.Signature = s.generatePaymentSignature(strconv.Itoa(req.Amount) + req.Datetime)
 
 	httpRes, err := common.SendAPIRequest(
