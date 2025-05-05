@@ -68,6 +68,11 @@ log.Printf("Full HTTP Response from InvoiceService.Create => %v", httpResponse)
 log.Printf("Response body from InvoiceService.Create => %v", createInvoiceRes)
 ```
 
+## More Detailed Example
+- [Invoice (Create Invoice - POP)](examples/invoice.md)
+- [Payment (Get Payment Method)](examples/payment.md)
+- [Transaction (Create Transaction, Get Transaction Status)](examples/transaction.md)
+
 ## Support
 If you have a feature request or spotted a bug or a techical problem, [create an issue here](https://github.com/idoyudha/duitku-go/issues/new/choose).
 For other questions, please contact duitku through their live chat on your dashboard.
